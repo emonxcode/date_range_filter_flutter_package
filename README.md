@@ -1,7 +1,7 @@
 # Date Range Filter
 
 A flutter library to get date range.
-![img](lib/screenshots/ss.png)
+![img](https://github.com/ShahriarEmon3215/date_range_filter_flutter_package/blob/main/lib/screenshots/ss.png)
   
 
 ## How to use
