@@ -75,7 +75,7 @@ class DateRangeFilter {
     );
   }
 
-  Future<List<DateTime>> get getSelectedDate async {
+   Future<List<DateTime>> get getSelectedDate async {
     await showDialog(
       context: context!,
       builder: (BuildContext ctx) => Dialog(
