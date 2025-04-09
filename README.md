@@ -13,8 +13,8 @@ Add this package to pubspec.yaml and then import.
  ```
 
  ```dart
-List<DateTime> dateRange = await DateRangeFilter(
-       ontext: context,
+  DateRangeResult? dateRange = await DateRangeFilter(
+       context: context,
        color: Theme.of(context).primaryColor,
   ).getSelectedDate;
  ```

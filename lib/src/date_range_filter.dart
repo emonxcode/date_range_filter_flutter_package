@@ -23,8 +23,8 @@ class DateRangeFilter {
       String? customRangeLabel,
       Color? primaryColor});
 
-  DateTime? startDate = DateTime.now();
-  DateTime? endDate = DateTime.now();
+  DateTime? startDate;
+  DateTime? endDate;
   BuildContext? context;
   Color? color;
   String? closeButtonText;
@@ -103,7 +103,7 @@ class DateRangeFilter {
     );
   }
 
-  Future<DateRangeResult> get getSelectedDate async {
+  Future<DateRangeResult?> get getSelectedDate async {
     await showDialog(
       context: context!,
       builder: (BuildContext ctx) => Dialog(
@@ -185,9 +185,11 @@ class DateRangeFilter {
         ),
       ),
     );
-    return DateRangeResult(
-      startDate: startDate!,
-      endDate: endDate!,
-    );
+    return startDate != null && endDate != null
+        ? DateRangeResult(
+            startDate: startDate!,
+            endDate: endDate!,
+          )
+        : null;
   }
 }
