@@ -1,15 +1,43 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 
+class DateRangeResult {
+  DateTime startDate;
+  DateTime endDate;
+
+  DateRangeResult({required this.startDate, required this.endDate});
+}
+
 class DateRangeFilter {
-  DateRangeFilter({required this.context, required this.color}) {}
+  DateRangeFilter(
+      {required this.context,
+      required this.color,
+      String? closeButtonText,
+      String? title,
+      String? todayLabel,
+      String? yesterdayLabel,
+      String? last7DaysLabel,
+      String? last30DaysLabel,
+      String? thisMonthLabel,
+      String? lastMonthLabel,
+      String? customRangeLabel,
+      Color? primaryColor});
 
   DateTime? startDate = DateTime.now();
   DateTime? endDate = DateTime.now();
   BuildContext? context;
   Color? color;
+  String? closeButtonText;
+  String? title;
+  String? todayLabel;
+  String? yesterdayLabel;
+  String? last7DaysLabel;
+  String? last30DaysLabel;
+  String? thisMonthLabel;
+  String? lastMonthLabel;
+  String? customRangeLabel;
 
-  filterItemButton(String label, int btnID, BuildContext ctx) {
+  Widget filterItemButton(String label, int btnID, BuildContext ctx) {
     return SizedBox(
       width: double.infinity,
       child: TextButton(
@@ -75,13 +103,11 @@ class DateRangeFilter {
     );
   }
 
-   Future<List<DateTime>> get getSelectedDate async {
+  Future<DateRangeResult> get getSelectedDate async {
     await showDialog(
       context: context!,
       builder: (BuildContext ctx) => Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        // insetPadding: EdgeInsets.all(0),
-
         child: Container(
           height: MediaQuery.sizeOf(context!).height * 0.5,
           padding: EdgeInsets.all(0),
@@ -100,7 +126,7 @@ class DateRangeFilter {
                               topRight: Radius.circular(20))),
                       child: Center(
                         child: Text(
-                          "Date Range Filter",
+                          title ?? "Date Range Filter",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -109,19 +135,20 @@ class DateRangeFilter {
                       ),
                     ),
                     SizedBox(height: 10),
-                    filterItemButton("Today", 1, ctx),
+                    filterItemButton(todayLabel ?? "Today", 1, ctx),
                     Divider(thickness: 1, height: 0),
-                    filterItemButton("Yesterday", 2, ctx),
+                    filterItemButton(yesterdayLabel ?? "Yesterday", 2, ctx),
                     Divider(thickness: 1, height: 0),
-                    filterItemButton("Last 7 Days", 3, ctx),
+                    filterItemButton(last7DaysLabel ?? "Last 7 Days", 3, ctx),
                     Divider(thickness: 1, height: 0),
-                    filterItemButton("Last 30 Days", 4, ctx),
+                    filterItemButton(last30DaysLabel ?? "Last 30 Days", 4, ctx),
                     Divider(thickness: 1, height: 0),
-                    filterItemButton("This Month", 5, ctx),
+                    filterItemButton(thisMonthLabel ?? "This Month", 5, ctx),
                     Divider(thickness: 1, height: 0),
-                    filterItemButton("Last Month", 6, ctx),
+                    filterItemButton(lastMonthLabel ?? "Last Month", 6, ctx),
                     Divider(thickness: 1, height: 0),
-                    filterItemButton("Custom Range", 7, ctx),
+                    filterItemButton(
+                        customRangeLabel ?? "Custom Range", 7, ctx),
                     SizedBox(height: 60),
                   ],
                 ),
@@ -143,7 +170,7 @@ class DateRangeFilter {
                             bottomRight: Radius.circular(20))),
                     child: Center(
                       child: Text(
-                        "Cancel",
+                        closeButtonText ?? "Cancel",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -158,6 +185,9 @@ class DateRangeFilter {
         ),
       ),
     );
-    return [startDate!, endDate!];
+    return DateRangeResult(
+      startDate: startDate!,
+      endDate: endDate!,
+    );
   }
 }
