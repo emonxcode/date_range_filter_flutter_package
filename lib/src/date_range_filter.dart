@@ -12,6 +12,7 @@ class DateRangeFilter {
   DateRangeFilter({
     required this.context,
     required this.color,
+    required this.labelColor,
     this.closeButtonText,
     this.title,
     this.todayLabel,
@@ -30,6 +31,9 @@ class DateRangeFilter {
   DateTime? endDate;
   BuildContext? context;
   Color? color;
+  Color? labelColor;
+  Color? closeButtonColor;
+  Color? titleColor;
   String? closeButtonText;
   String? title;
   String? todayLabel;
@@ -47,6 +51,9 @@ class DateRangeFilter {
     return SizedBox(
       width: double.infinity,
       child: TextButton(
+        style: TextButton.styleFrom(
+          foregroundColor: labelColor,
+        ),
         onPressed: () async {
           var now = DateTime.now();
           if (btnID == 1) {
@@ -151,10 +158,10 @@ class DateRangeFilter {
                       child: Center(
                         child: Text(
                           title ?? "Date Range Filter",
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
-                              color: Colors.white),
+                              color: titleColor ?? Colors.white),
                         ),
                       ),
                     ),
@@ -179,8 +186,7 @@ class DateRangeFilter {
                         customDateTimeLabel ?? "Custom Date Time", 10, ctx),
                     const Divider(thickness: 0.5, height: 0),
                     filterItemButton(
-                        customRangeLabel ?? "Custom Date Range", 7, ctx),
-                    const Divider(thickness: 0.5, height: 0),
+                        customRangeLabel ?? "Custom Date Range", 7, ctx), 
                     const SizedBox(height: 60),
                   ],
                 ),
@@ -205,9 +211,9 @@ class DateRangeFilter {
                     child: Center(
                       child: Text(
                         closeButtonText ?? "Cancel",
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: closeButtonColor ?? Colors.white,
                             fontSize: 18),
                       ),
                     ),
